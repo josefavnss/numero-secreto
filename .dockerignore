@@ -1,2 +1,10 @@
-Dockerfile
+# Additional files
+.dockerignore
+.env
 .git*
+.editorconfig
+Dockerfile
+docker-compose*.yml
+*.md
+hosts
+LICENSE
