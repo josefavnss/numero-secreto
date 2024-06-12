@@ -25,10 +25,10 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v5
       with:
-         push: true
-         context: .
-         file: Dockerfile
-         tags: ${{ secrets.DOCKER_USERNAME }}/nginx:latest
+        push: true
+        context: .
+        file: Dockerfile
+        tags: ${{ secrets.DOCKER_USERNAME }}/nginx:latest
 
     - name: Set up K8s
       uses: azure/k8s-set-context@v1
