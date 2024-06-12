@@ -22,17 +22,21 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    # - name: Build Docker image
-    #   run: docker build -t josefavnss/nginx:latest .
-    #   working-directory: ./path/to/your/dockerfile/directory
-
-    # - name: Push Docker image
-    #   run: docker push josefavnss/nginx:latest
-
-    - name: Build and push
+    - name: Build and push Docker image
       uses: docker/build-push-action@v5
       with:
          push: true
          context: .
          file: Dockerfile
-         tags: josefavnss/nginx:latest
+         tags: ${{ secrets.DOCKER_USERNAME }}/nginx:latest
+
+    - name: Set up K8s
+      uses: azure/k8s-set-context@v1
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.K8S_CLUSTER_CONFIG }}
+
+    - name: Deploy to K8s
+      run: |
+        kubectl apply -f k8s/deployment.yaml
+        kubectl apply -f k8s/service.yaml

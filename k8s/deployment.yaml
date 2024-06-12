@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meu-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: meu-app
+  template:
+    metadata:
+      labels:
+        app: meu-app
+    spec:
+      containers:
+      - name: meu-app-container
+        image: ${{ secrets.DOCKER_USERNAME }}/nginx:latest
+        ports:
+        - containerPort: 8080
