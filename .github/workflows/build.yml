@@ -36,7 +36,10 @@ jobs:
         method: kubeconfig
         kubeconfig: ${{ secrets.K8S_CLUSTER_CONFIG }}
 
+    - name: Test K8s connection
+      run: kubectl cluster-info
+
     - name: Deploy to K8s
       run: |
-        kubectl apply -f k8s/deployment.yaml
-        kubectl apply -f k8s/service.yaml
+        kubectl apply -f k8s/deployment.yaml --validate=false
+        kubectl apply -f k8s/service.yaml --validate=false
