@@ -1,0 +1,30 @@
+version: '3'
+
+services: 
+  db:
+    image: mysql:5.7
+    command: --innodb-use-native-aio=0
+    container_name: db
+    restart: always # se cair o container ele irá dar um restart
+    tty: true
+    volumes:  
+      - ./mysql:/var/lib/mysql  # tudo que o mysql salvar '/var/lib/mysql' irá gravar na pasta './mysql' criada local
+    environment: 
+      - MYSQL_DATABASE=nodedb
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - node-network
+  
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: josefavnss/nginx
+    networks: 
+      - node-network
+    ports: 
+      - "8080:80"
+
+networks:
+  nginx-network:
+    driver: bridge
