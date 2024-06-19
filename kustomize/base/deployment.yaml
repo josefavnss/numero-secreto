@@ -1,9 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: meu-app-deployment
-  labels:
-    app: meu-app
+  name: meu-deployment
 spec:
   replicas: 3
   selector:
@@ -15,8 +13,5 @@ spec:
         app: meu-app
     spec:
       containers:
-      - name: meu-app-container
-        image: josefavnss/nginx:latest
-        imagePullPolicy: Always
-        ports: 
-        - containerPort: 80
+      - name: meu-container
+        image: nginx:latest

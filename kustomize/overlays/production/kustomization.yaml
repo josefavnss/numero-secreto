@@ -1,0 +1,32 @@
+resources:
+  - ../../base
+
+patches:
+  - target:
+      kind: Deployment
+      name: meu-deployment
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: meu-deployment
+      spec:
+        replicas: 5
+  - target:
+      kind: Deployment
+      name: meu-deployment
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: meu-deployment
+      spec:
+        template:
+          spec:
+            containers:
+            - name: meu-container
+              resources:
+                requests:
+                  cpu: "500m"
+                limits:
+                  cpu: "1000m"
